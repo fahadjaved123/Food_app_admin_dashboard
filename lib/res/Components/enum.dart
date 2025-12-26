@@ -1,0 +1,1 @@
+enum ChartFilter { month, year }
