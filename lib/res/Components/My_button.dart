@@ -20,7 +20,7 @@ class _ButtonState extends State<Mybutton> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
-          width: double.infinity,
+          width: 200,
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(15),
@@ -31,10 +31,10 @@ class _ButtonState extends State<Mybutton> {
           child: widget.isloading
               ? Container(
                   margin: EdgeInsets.only(
-                      left: 100, right: 100, top: 10, bottom: 10),
+                      left: 50, right: 50, top: 10, bottom: 10),
                   child: CircularProgressIndicator(
-                    color: Theme.of(context).colorScheme.primary,
-                    strokeWidth: 2,
+                    color: Colors.green,
+                    strokeWidth: 4,
                   ),
                 )
               : TextButton(onPressed: widget.onPressed, child: widget.text)),

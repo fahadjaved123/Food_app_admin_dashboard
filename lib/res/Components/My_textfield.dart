@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 
 class Mytextfield extends StatelessWidget {
   final controller;
-  bool obsuretext;
+  final bool obsuretext;
   final hinttext;
   final double? borderRadius;
   final double? padding;
   final IconData? preficon;
+  final FocusNode? focusNode;
+  final void Function(String)? onFieldSubmitted;
   Mytextfield(
       {super.key,
+      this.focusNode,
+      this.onFieldSubmitted,
       this.borderRadius,
       this.preficon,
       this.padding,
@@ -21,6 +25,8 @@ class Mytextfield extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: padding ?? 20),
       child: TextFormField(
+        onFieldSubmitted: onFieldSubmitted,
+        focusNode: focusNode,
         controller: controller,
         obscureText: obsuretext,
         decoration: InputDecoration(

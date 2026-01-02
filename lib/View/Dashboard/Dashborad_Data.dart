@@ -6,7 +6,7 @@ import 'package:food_app_adminpanel/res/Components/enum.dart';
 class DashboardData extends GetxController {
   RxInt selectedIndex = 0.obs;
   var selectedFilter = ChartFilter.month.obs;
-
+  RxBool isExpanded = true.obs;
   static final TextEditingController searchController = TextEditingController();
 
   static final List<Map<String, dynamic>> ordersData = [
@@ -34,5 +34,9 @@ class DashboardData extends GetxController {
 
   void onMenuTap(int index) {
     selectedIndex.value = index;
+  }
+
+  void changemenuState() {
+    isExpanded.toggle();
   }
 }

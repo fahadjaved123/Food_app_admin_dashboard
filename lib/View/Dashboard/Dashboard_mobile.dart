@@ -14,6 +14,7 @@ class DashboardMobile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.grey.shade200),
       drawer: Drawer(
+        width: controller.isExpanded.value ? 250 : 100,
         child: DrawerContent(
           selectedIndex: controller.selectedIndex.value,
           onItemSelected: controller.onMenuTap,

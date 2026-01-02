@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_app_adminpanel/View/Main_page.dart';
+import 'package:food_app_adminpanel/View/Login.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MainPage(),
+      home: Login(),
     );
   }
 }

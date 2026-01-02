@@ -16,7 +16,7 @@ class DashboardDesktop extends StatelessWidget {
         children: [
           Obx(() {
             return Container(
-              width: 200,
+              width: controller.isExpanded.value ? 200 : 120,
               color: Colors.grey.shade200,
               child: DrawerContent(
                 selectedIndex: controller.selectedIndex.value,

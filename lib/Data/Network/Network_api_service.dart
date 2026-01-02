@@ -1,4 +1,4 @@
-
+import 'dart:convert';
 import 'dart:io';
 import 'package:food_app_adminpanel/Data/App_execpection.dart';
 import 'package:food_app_adminpanel/Data/Network/Base_api_service.dart';
@@ -21,42 +21,53 @@ class NetworkApiService extends BaseApiService {
   }
 
   @override
-  Future PostAPi(String url, data) async {
-    dynamic jsonreponse;
+  Future PostAPi(String url, Map<String, dynamic> data) async {
+    dynamic Jsonreponse;
     print(data);
     print(url);
-    print('Rsponse$jsonreponse');
+    print('Rsponse$Jsonreponse');
     try {
       final response = await http
-          .post(Uri.parse(url), body: data)
-          .timeout(Duration(seconds: 10));
+          .post(
+            Uri.parse(url),
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: jsonEncode(data),
+          )
+          .timeout(Duration(seconds: 20));
 
-      jsonreponse = ReturnResponse(response);
+      Jsonreponse = ReturnResponse(response);
+      print(response);
       print('Rsponse$Jsonreponse');
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
     } on SocketException {
       throw InternetException('');
     } catch (e) {
-      return FetchdataException(e.toString());
+      throw FetchdataException(e.toString());
     }
-    return jsonreponse;
+    return Jsonreponse;
   }
 }
 
 dynamic ReturnResponse(http.Response response) {
+  final body = response.body.trim();
   switch (response.statusCode) {
     case 200:
       return {
         'success': true,
-        'body': response.body,
-        'headers': response.headers
+        'body': body,
+        'headers': response.headers,
       };
-    case 400:
-      throw InvalidaUrl();
+
+    case 404:
+      final errorMsg = jsonDecode(response.body)["Message"];
+      throw FetchdataException(errorMsg);
     case 401:
       throw RequestTimeout();
     default:
-      throw FetchdataException('internet error');
+      throw FetchdataException('Unexpected error: ${response.statusCode}');
   }
 }

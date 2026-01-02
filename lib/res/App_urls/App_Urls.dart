@@ -1,5 +1,6 @@
 class AppUrl {
-  static String Baseurl = "http://10.0.2.2:8000/user";
-  static String login = "$Baseurl/login";
+  static String Baseurl = "http://localhost:8000";
+  static String login = "$Baseurl/user/login";
   static String signup = "$Baseurl/signup";
+  static String additem = "$Baseurl/food/item";
 }

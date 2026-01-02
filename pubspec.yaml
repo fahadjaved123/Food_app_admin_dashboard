@@ -42,6 +42,9 @@ dependencies:
   another_flushbar: ^1.12.32
   iconsax: ^0.0.8
   fl_chart: ^0.71.0
+  image_picker: ^1.2.0
+  image_picker_for_web: ^3.1.0
+  google_fonts: ^6.3.0
 
 dev_dependencies:
   flutter_test:

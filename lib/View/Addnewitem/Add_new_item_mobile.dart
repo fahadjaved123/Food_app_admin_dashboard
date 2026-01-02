@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app_adminpanel/View/Addnewitem/Add_new_item_content.dart';
 import 'package:food_app_adminpanel/View/Dashboard/Dashborad_Data.dart';
 import 'package:food_app_adminpanel/res/Components/Drawer_content.dart';
 import 'package:get/get.dart';
@@ -23,13 +24,9 @@ class _AddNewItemMobileState extends State<AddNewItemMobile> {
           onItemSelected: controller.onMenuTap,
         ),
       ),
-      body: Column(
-        children: [
-          Text(
-            "Add New Item",
-            style: TextStyle(fontSize: 17),
-          )
-        ],
+      body: NewItemContent(
+        mainwidth: 150,
+        mwidth: 90,
       ),
     );
   }

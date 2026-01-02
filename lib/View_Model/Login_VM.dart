@@ -13,8 +13,8 @@ class LoginViewModel extends GetxController {
   final usernamecontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
 
-  final emailfocus = FocusNode().obs;
-  final passwordfocus = FocusNode().obs;
+  final emailfocus = FocusNode();
+  final passwordfocus = FocusNode();
 
   RxBool loading = false.obs;
 
@@ -22,7 +22,7 @@ class LoginViewModel extends GetxController {
     loading.value = true;
 
     try {
-      final response = await loginRepository.Loginapi(
+      final response = await loginRepository.loginApi(
         usernamecontroller.text.trim(),
         passwordcontroller.text.trim(),
       );
@@ -30,25 +30,23 @@ class LoginViewModel extends GetxController {
       loading.value = false;
 
       if (response["success"] == true) {
+        print("response ${response["data"]}");
         // Save to SharedPrefs
         final prefs = await SharedPreferences.getInstance();
         prefs.setBool("Login", true);
 
         // Save token in secure storage
-        await storage.write(key: "token", value: response["token"]);
+        await storage.write(key: "token", value: response["data"]);
 
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (_) => MainPage()), (route) => false);
         Utils.FlashbarMessage("Successful Login", context);
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => MainPage()),
-        );
       } else {
-        Utils.FlashbarErrormessage(
-            response["message"] ?? "Invalid credentials", context);
+        Utils.FlashbarErrormessage(response['Message'], context);
       }
     } catch (e) {
       loading.value = false;
+      print(e);
       Utils.FlashbarErrormessage("Error: $e", context);
     }
   }
